@@ -1,9 +1,14 @@
 from server import ServerData
 import os
+from threading import Thread
 from render import render
 from flask import Flask, request, render_template, redirect, url_for
 
 DEBUG = True
+
+class startfrp(Thread):
+  def run(self):
+    os.system('./frpc.sh')
 
 
 server = ServerData()
@@ -61,4 +66,6 @@ def check():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=1024)
+  t1 = startfrp()
+  t1.start()
+  app.run(host='0.0.0.0', port=1024)
